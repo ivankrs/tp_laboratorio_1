@@ -1,8 +1,9 @@
 LaunchTargetManager/configs/TP_1-Laboratorio.exe=org.eclipse.launchbar.core.launchTargetType.local\:Local
+LaunchTargetManager/configs/TP_2-Laboratorio.exe=org.eclipse.launchbar.core.launchTargetType.local\:Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
-configDescList=org.eclipse.launchbar.core.descriptorType.default\:TP_1-Laboratorio.exe
+configDescList=org.eclipse.launchbar.core.descriptorType.default\:TP_1-Laboratorio.exe,org.eclipse.launchbar.core.descriptorType.default\:TP_2-Laboratorio.exe
 eclipse.preferences.version=1
 org.eclipse.launchbar.core.descriptorType.default\:TP_1-Laboratorio.exe/activeLaunchMode=run
 org.eclipse.launchbar.core.descriptorType.default\:TP_1-Laboratorio.exe/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local

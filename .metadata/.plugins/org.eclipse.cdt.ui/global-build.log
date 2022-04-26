@@ -1,6 +1,5 @@
-21:15:54 **** Incremental Build of configuration Debug for project TP_1-Laboratorio ****
+20:49:22 **** Incremental Build of configuration Debug for project TP_2-Laboratorio ****
 Info: Internal Builder is used for build
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\TP_1-Laboratorio.o" "..\\src\\TP_1-Laboratorio.c" 
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Funciones.o" "..\\src\\Funciones.c" 
-gcc -o TP_1-Laboratorio.exe "src\\Funciones.o" "src\\TP_1-Laboratorio.o" 
-Info: Nothing to build for TP_1-Laboratorio
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ArrayPasajeros.o" "..\\src\\ArrayPasajeros.c" 
+gcc -o TP_2-Laboratorio.exe "src\\ArrayPasajeros.o" "src\\Funciones.o" "src\\TP_2-Laboratorio.o" 
+Info: Nothing to build for TP_2-Laboratorio
