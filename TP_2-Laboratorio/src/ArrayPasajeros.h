@@ -27,3 +27,6 @@ int isEmpty(ePasajero vec[], int tam);
 int generarId(ePasajero vec[], int tam);
 int cargarUnPasajero(ePasajero vec[], int  id);
 int modificarUnPasajero(ePasajero vec[], int  id);
+int bajarUnPasajero(ePasajero vec[], int  id);
+int mostrarUnPasajero(ePasajero vec[], int id);
+int mostrarListaPasajeros(ePasajero vec[], int tam);

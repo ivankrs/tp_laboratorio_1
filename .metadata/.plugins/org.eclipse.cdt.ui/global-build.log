@@ -1,5 +1,6 @@
-20:49:22 **** Incremental Build of configuration Debug for project TP_2-Laboratorio ****
+16:51:29 **** Incremental Build of configuration Debug for project TP_2-Laboratorio ****
 Info: Internal Builder is used for build
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ArrayPasajeros.o" "..\\src\\ArrayPasajeros.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\TP_2-Laboratorio.o" "..\\src\\TP_2-Laboratorio.c" 
 gcc -o TP_2-Laboratorio.exe "src\\ArrayPasajeros.o" "src\\Funciones.o" "src\\TP_2-Laboratorio.o" 
-Info: Nothing to build for TP_2-Laboratorio
+c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe: cannot open output file TP_2-Laboratorio.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status

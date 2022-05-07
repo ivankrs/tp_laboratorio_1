@@ -29,9 +29,9 @@ int menu(char* msj);
  * \param msj -El mensaje que le doy a la función, para aclarar para que es el número flotante a ingresar.
  * \return -Devuelve 0, si no se pudo efectuar la función y 1, se efectuo la función con exito.
  */
-int ingresoFloat(float* pFloat, char* msj);
-int ingresarInt(char* mensaje);
-int ingresarString(char pString[], int len, char* msj);
+float ingresoFloat(char* msj, char* msjError, int rangoBajo, int rangoAlto);
+int ingresarInt(char* msj, char* msjError, int rangoBajo, int rangoAlto);
+int ingresarString(char pString[], char* msj, char* msjError, int rangoBajo, int rangoAlto);
 
 int validarRangoEntero(int valor, int inferior, int superior);
 int validarRangoFlotante(float valor, float inferior, float superior);

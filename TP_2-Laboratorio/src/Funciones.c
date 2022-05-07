@@ -35,45 +35,45 @@ int menu(char* msj){
     return opcion;
 }
 //INGRESOS (pnt. 1-2)
-int ingresoFloat(float* pFloat, char* msj){
-	int kay;
-	kay=0;
-	if(pFloat!= 0){
+float ingresoFloat(char* msj, char* msjError, int rangoBajo, int rangoAlto){
+
+	float numero;
+	if(msj!=NULL && msjError!=NULL && (rangoBajo < rangoAlto)){
 		printf("%s", msj);
-		scanf("%f", pFloat);
+		scanf("%f", &numero);
 
-		while(*pFloat<1){
-			printf("¡El valor ingresado no es valido!¡REINTENTE!: ");
-			scanf("%f", pFloat);
+		while(validarRangoFlotante(numero, rangoBajo, rangoAlto)!=1){
+			printf("%s", msjError);
+			scanf("%f", &numero);
 		}
-		kay=1;
-	}
-
-	return kay;
-}
-int ingresarInt(char* mensaje){
-	int numero;
-
-	printf("%s",mensaje);
-	scanf("%d", &numero);
-	while(validarRangoEntero(numero, 1, 2000)!=1){
-		printf("\n¡Error! Numeros validos de 1 a 2000.\n>Reingrese: ");
-		scanf("%d", &numero);
 	}
 	return numero;
 }
-int ingresarString(char pString[], int len, char* msj){
+int ingresarInt(char* msj, char* msjError, int rangoBajo, int rangoAlto){
+	int numero;
+	if(msj!=NULL && msjError!= NULL && rangoBajo < rangoAlto){
+		printf("%s",msj);
+		scanf("%d", &numero);
+
+		while(validarRangoEntero(numero, rangoBajo, rangoAlto)!=1){
+			printf("%s", msjError);
+			scanf("%d", &numero);
+		}
+	}
+	return numero;
+}
+int ingresarString(char pString[], char* msj, char* msjError, int rangoBajo, int rangoAlto){
 	int kay=0;
 	char auxCad[100];
 
-	if(pString != NULL && len > 0){
+	if(pString != NULL && rangoBajo < rangoAlto){
 		printf("%s", msj);
 		fflush(stdin);
 		gets(auxCad);
 
-		while(strlen(auxCad) >= len)
+		while(strlen(auxCad) >= rangoAlto || strlen(auxCad) <= rangoBajo)
 		{
-			printf("¡Error! Es demasiado largo, deben ser menos de %d caracteres.\n>Reingrese: ", len);
+			printf("%s",msjError);
 			fflush(stdin);
 			gets(auxCad);
 		}
@@ -108,7 +108,7 @@ void confirmarSalida(char* p){
 
     while(confirma!= 's' && confirma!= 'n'){
 
-		printf("¿Confirma salida?-('s'= si / 'n'= no): ");
+		printf("\n¿Confirma salida?-('s'= si / 'n'= no): ");
 		fflush(stdin);
 		scanf("%c", &confirma);
 		confirma=tolower(confirma);
