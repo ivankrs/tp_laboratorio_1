@@ -74,12 +74,33 @@ int cargarUnPasajero(ePasajero vec[], int idX)
     }
     return todoOk;
 }
-int modificarUnPasajero(ePasajero vec[], int  id){
+int modificarUnPasajero(ePasajero vec[], int  idX){
 	int kay=0;
-	if(vec != NULL && id>0){
-		cargarUnPasajero(vec, id);
-		kay=1;
-	}
+	int id=idX-1;
+	char confirma='x';
+
+	if(vec != NULL && id>=0 && vec[id].isEmpty==1){
+		mostrarUnPasajero(vec, id);
+		 while(confirma!= 's' && confirma!= 'n'){
+			 	printf("\n\n");
+				printf("\n¿Confirma modificar pasajero?-('s'= si / 'n'= no): ");
+				fflush(stdin);
+				scanf("%c", &confirma);
+				confirma=tolower(confirma);
+			}
+			if(confirma=='s'){
+				printf("\n");
+				cargarUnPasajero(vec, id);
+				kay=1;
+				printf("\n¡Se ha modificado con exito!");
+			}
+			else{
+				printf("\n¡No se ha modificado!");
+			}
+		}
+		else{
+			printf("\n¡No hay pasajeros para modificar!");
+		}
 	return kay;
 }
 int bajarUnPasajero(ePasajero vec[], int  idX){
@@ -90,6 +111,7 @@ int bajarUnPasajero(ePasajero vec[], int  idX){
 		mostrarUnPasajero(vec, id);
 
 		 while(confirma!= 's' && confirma!= 'n'){
+			printf("\n\n");
 			printf("\n¿Confirma dar de baja?-('s'= si / 'n'= no): ");
 			fflush(stdin);
 			scanf("%c", &confirma);
@@ -110,13 +132,13 @@ int bajarUnPasajero(ePasajero vec[], int  idX){
 
 	return kay;
 }
-int mostrarUnPasajero(ePasajero vec[], int idX){
+int mostrarUnPasajero(ePasajero vec[], int id){
 	int kay=0;
-	int id=idX-1;
 	if(vec!=NULL && id>=0){
 		printf("\n Id     Nombre     Apellido     Precio    Codigo de vuelo   Tipo de pasajero   Status del vuelo\n");
-		printf("----------------------------------------------------------------------------------------------\n");
+		printf("---------------------------------------------------------------------------------------------------\n");
 		printf("%04d%10s  %10s      %.2f         %4s                %d                  %d\n", vec[id].id, vec[id].nombre, vec[id].apellido, vec[id].precio, vec[id].codigoVuelo, vec[id].tipoPasajero, vec[id].statusVuelo);
+
 		kay=1;
 	}
 
@@ -129,7 +151,7 @@ int mostrarListaPasajeros(ePasajero vec[], int tam){
 	int i;
 	if(vec!=NULL && tam>0){
 		printf("\n Id     Nombre     Apellido     Precio    Codigo de vuelo   Tipo de pasajero   Status del vuelo\n");
-		printf("----------------------------------------------------------------------------------------------\n");
+		printf("---------------------------------------------------------------------------------------------------\n");
 
 		for(i=0 ; i<tam; i++){
 			if(vec[i].isEmpty ==1){
@@ -137,6 +159,7 @@ int mostrarListaPasajeros(ePasajero vec[], int tam){
 			}
 		}
 			kay=1;
+			printf("\n\n");
 	}
 	return kay;
 }

@@ -48,14 +48,8 @@ int main(void) {
 		case  2:
 			printf("2- MODIFICAR\n");
 			//if(flagAlta){
-				if(modificarUnPasajero(pasajero, ingresarInt("\nIngrese el Id del pasajero a modificar: ", "\n¡Error! Numeros validos de 1 a 2001.\n>Reingrese: ", 1, 2001))){
-					printf("\nSe modifico con exito");
-					//printf("Id: %04d\nNombre: %s\nApellido: %s\nPrecio: %.2f\nCodigo de vuelo: %s\nTipo de pasajero: %d\nStatus de vuelo: %d\nisEmpty: %d", pasajero->id, pasajero->nombre, pasajero->apellido, pasajero->precio, pasajero->codigoVuelo, pasajero->tipoPasajero, pasajero->statusVuelo, pasajero->isEmpty);
-				}
-		/*	}
-			else{
-				printf("\n¡Debe de haber ingresado un pasajero para poder modificar!\n");
-			}*/
+				modificarUnPasajero(pasajero, ingresarInt("\nIngrese el Id del pasajero a modificar: ", "\n¡Error! Numeros validos de 1 a 2001.\n>Reingrese: ", 1, 2001));
+			//}
 			break;
 
 		case  3:

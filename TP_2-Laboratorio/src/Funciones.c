@@ -12,9 +12,9 @@
 void lineas(void){
 	int i;
 	printf("\n");
-	for(i=1;i<40;i++)
+	for(i=0;i<50;i++)
 	{
-		printf("==");
+		printf("~=");
 	}
 	printf("\n");
 }
