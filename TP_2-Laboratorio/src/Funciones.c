@@ -12,7 +12,7 @@
 void lineas(void){
 	int i;
 	printf("\n");
-	for(i=0;i<50;i++)
+	for(i=0;i<65;i++)
 	{
 		printf("~=");
 	}
@@ -100,7 +100,24 @@ int validarRangoFlotante(float valor, float inferior, float superior){
     }
     return esValido;
 }
-
+void swapEnteros(int* n1,int* n2){
+    int aux;
+    aux = *n1;
+    *n1 = *n2;
+    *n2 = aux;
+}
+void swapFlotantes(float* n1,float* n2){
+    float aux;
+    aux = *n1;
+    *n1 = *n2;
+    *n2 = aux;
+}
+void swapString (char* n1,char* n2){
+    char aux[100];
+    strcpy(aux,n1);
+    strcpy(n1,n2);
+    strcpy(n2,aux);
+}
 
 
 void confirmarSalida(char* p){

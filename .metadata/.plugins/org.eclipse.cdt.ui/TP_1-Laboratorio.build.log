@@ -1,1 +1,8 @@
-Info: Nothing to build for TP_1-Laboratorio
+20:37:35 **** Rebuild of configuration Debug for project TP_1-Laboratorio ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\TP_1-Laboratorio.o" "..\\src\\TP_1-Laboratorio.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Funciones.o" "..\\src\\Funciones.c" 
+gcc -o TP_1-Laboratorio.exe "src\\Funciones.o" "src\\TP_1-Laboratorio.o" 
+
+20:37:36 Build Finished. 0 errors, 0 warnings. (took 1s.184ms)
+

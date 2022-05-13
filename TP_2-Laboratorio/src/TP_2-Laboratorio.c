@@ -15,19 +15,20 @@
 
 int main(void) {
 
-	ePasajero pasajero[TAM]={{1, "ivan", "keo", 123.2, "a21", 1, 2, 1},{2, "vanesa", "fredo", 145.3, "a22", 1, 2, 1}};
-	//int flagAlta=0;
+	ePasajero pasajero[TAM]=
+	{
+			{1, "ivan", "abekeo", 123.2, "A021", 2, 1, 1},
+			{2, "vanesa", "abekeo", 145.3, "B022", 1, 2, 1}
+	};
 
+	int flagAlta=0;
 	char salir='n';
 
 	setbuf(stdout,NULL);
-	/*if(!isEmpty(pasajero, TAM)){
-		printf("\n¡Ocurrio un problema!\n");
-	}*/
+	//isEmpty(pasajero, TAM)){
+
 
 	do{
-
-
 		switch(menu("\n  *** Menu de Opciones ***\n\n1- ALTAS:\n2- MODIFICAR:\n3- BAJA:\n4- INFORMAR:\n5- SALIR:\n\n")){
 		case 1:
 			printf("1- ALTAS\n");
@@ -41,30 +42,49 @@ int main(void) {
 					break;
 				}
 			}
-			//se genera ID de 1 a 2000 y se carga pasajero bajo esa ID
-			//flagAlta=1;
+			flagAlta=1;
 			break;
 
 		case  2:
-			printf("2- MODIFICAR\n");
-			//if(flagAlta){
-				modificarUnPasajero(pasajero, ingresarInt("\nIngrese el Id del pasajero a modificar: ", "\n¡Error! Numeros validos de 1 a 2001.\n>Reingrese: ", 1, 2001));
-			//}
+			if(flagAlta){
+				printf("2- MODIFICAR\n");
+				if(mostrarListaPasajeros(pasajero, TAM)){
+					modificarUnPasajero(pasajero, ingresarInt("\nIngrese el Id del pasajero a modificar: ", "\n¡Error! Numeros validos de 1 a 2001.\n>Reingrese: ", 1, 2000));
+				}
+			}
+			else{
+				printf("\n¡Debe de haber ingresado un pasajero para poder modificar!\n");
+			}
 			break;
 
 		case  3:
-			printf("3- BAJA\n");
-			//if(flagAlta){
-				bajarUnPasajero(pasajero, ingresarInt("\nIngrese el Id del pasajero a dar de baja: ", "\n¡Error! Numeros validos de 1 a 2001.\n>Reingrese: ", 1, 2001));
-			/*}
+			if(flagAlta){
+				printf("3- BAJA\n");
+				bajarUnPasajero(pasajero, ingresarInt("\nIngrese el Id del pasajero a dar de baja: ", "\n¡Error! Numeros validos de 1 a 2001.\n>Reingrese: ", 1, 2000));
+			}
 			else{
 					printf("\n¡Debe de haber ingresado un pasajero para poder dar de baja!\n");
-				}*/
+				}
 			break;
 
 		case  4:
-			printf("4- INFORMAR\n");
-			mostrarListaPasajeros(pasajero, TAM);
+			if(flagAlta){
+
+				printf("4- INFORMAR\n");
+				if(ordenarListaPasajerosPorApellido(pasajero, TAM)){
+					printf("\n1.\n");
+					mostrarListaPasajeros(pasajero, TAM);
+				}
+				printf("\n2.\n");
+				mostraPrecios(pasajero, TAM);
+				if(ordenarListaPasajerosPorCodigo(pasajero, TAM)){
+					printf("\n3.\n");
+					mostrarListaPasajeros(pasajero, TAM);
+				}
+			}
+			else{
+				printf("\n¡Debe de haber ingresado un pasajero para poder informar!\n");
+			}
 
 			break;
 
@@ -75,8 +95,7 @@ int main(void) {
 
 		default:
 			printf(" X ¡Opcion invalida! X");
-				break;
-
+			break;
 		}
 	}while(salir!='s');
 
