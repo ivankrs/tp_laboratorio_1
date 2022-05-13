@@ -20,24 +20,28 @@ void isEmpty(ePasajero vec[], int tam){
 
 int generarId(ePasajero vec[], int tam){
 	int id=-1;
-	int maxId=0;
+	//int maxId=0;
 	int i;
 
 	if(vec != NULL && tam > 0){
 		for(i=0; i < tam; i++)
 		{
-			if(vec[i].isEmpty==1 && maxId < vec[i].id){
+			if(vec[i].isEmpty==0){
+				id=i;
+				break;
+			}
+			/*if(vec[i].isEmpty==1 && maxId < vec[i].id){
 				maxId = vec[i].id;
 			}
 			if(vec[i].isEmpty==0 && i==0){
-				id = 1;
+				id = 0;
 				break;
 			}
-			else if(vec[i].isEmpty==0 && maxId<2001){
-				maxId += 1;
+			else if(vec[i].isEmpty==0 && maxId<2000){
+				maxId ++;
 				id=maxId;
 				break;
-			}
+			}*/
 		}
 	}
 	if(id==-1){
@@ -45,19 +49,19 @@ int generarId(ePasajero vec[], int tam){
 	}
 	return id;
 }
-int cargarUnPasajero(ePasajero vec[], int idX)
+int cargarUnPasajero(ePasajero vec[], int id)
 {
-	int id=idX-1;
-    int todoOk = 0;
-    if(vec != NULL)
+    int kay = 0;
+    if(vec != NULL && id>=0)
     {
+    	vec[id].id = id+1;
     	ingresarString(vec[id].nombre, "Ingrese el nombre del pasajero: ", "\n¡Nombre demasiado largo o corto! >Reingrese nombre: ", 0, 51);
 
 		ingresarString(vec[id].apellido, "Ingrese el apellido del pasajero: ", "\n¡Apellido demasiado largo o corto! >Reingrese apellido: ", 0, 51);
 
 		vec[id].precio = ingresoFloat("Ingrese el precio: ","\n¡Error! Numeros validos de 1 a un millon.\n>Reingrese: ", 1, 1000000);
 
-		ingresarString(vec[id].codigoVuelo,"Ingrese el codigo de vuelo: ", "\n¡Codigo de vuelo demasiado largo o corto! >Reingrese codigo de vuelo: ", 0, 5);
+		ingresarString(vec[id].codigoVuelo,"Ingrese el codigo de vuelo: ", "\n¡Codigo de vuelo demasiado largo o corto! >Reingrese codigo de vuelo: ", 0, 10);
 
 		vec[id].tipoPasajero = ingresarInt("Ingrese el tipo de pasajero: ", "\n¡Error! Numeros validos de 1 a 2.\n>Reingrese: ", 1, 2);
 
@@ -66,13 +70,13 @@ int cargarUnPasajero(ePasajero vec[], int idX)
 
 		vec[id].isEmpty=1;
 
-        todoOk = 1;
+        kay = 1;
     }
-    return todoOk;
+    return kay;
 }
 int modificarUnPasajero(ePasajero vec[], int  idX){
 	int kay=0;
-	int id=idX-1;
+	int id = idX-1;
 	char confirma='x';
 
 	if(vec != NULL && id>=0 && vec[id].isEmpty==1){
@@ -85,7 +89,7 @@ int modificarUnPasajero(ePasajero vec[], int  idX){
 				confirma=tolower(confirma);
 			}
 			if(confirma=='s'){
-				switch(menuModificaUnPasajero(vec, idX)){
+				switch(menuModificaUnPasajero(vec, id)){
 				case 1:
 					ingresarString(vec[id].nombre, "Ingrese el nombre del pasajero: ", "\n¡Nombre demasiado largo o corto! >Reingrese nombre: ", 0, 51);
 					break;
@@ -97,13 +101,13 @@ int modificarUnPasajero(ePasajero vec[], int  idX){
 					vec[id].precio=ingresoFloat("Ingrese el precio: ","\n¡Error! Numeros validos de 1 a un millon.\n>Reingrese: ", 1, 1000000);
 					break;
 				case 4:
-					ingresarString(vec[id].codigoVuelo,"Ingrese el codigo de vuelo: ", "\n¡Codigo de vuelo demasiado largo o corto! >Reingrese codigo de vuelo: ", 0, 5);
+					ingresarString(vec[id].codigoVuelo,"Ingrese el codigo de vuelo: ", "\n¡Codigo de vuelo demasiado largo o corto! >Reingrese codigo de vuelo: ", 0, 10);
 					break;
 				case 5:
 					vec[id].tipoPasajero = ingresarInt("Ingrese el tipo de pasajero: ", "\n¡Error! Numeros validos de 1 a 2.\n>Reingrese: ", 1, 2);
 					break;
 				case 6:
-					vec[id].statusVuelo = ingresarInt("Ingrese status del vuelo: ", "\n¡Error! Numeros validos de 1 a 2.\n>Reingrese: ", 1, 2);
+					vec[id].statusVuelo = ingresarInt("Ingrese status del vuelo- 1.('Activo') y 2.('Inactivo'): ", "\n¡Error! Numeros validos de 0 a 1.\n>Reingrese: ", 0, 1);
 					break;
 				case 7:
 					cargarUnPasajero(vec, id);
@@ -129,8 +133,7 @@ int modificarUnPasajero(ePasajero vec[], int  idX){
 }
 int menuModificaUnPasajero(ePasajero vec[], int  idX){
 	int kay=0;
-	int id=idX-1;
-
+	int id = idX-1;
 	if(vec != NULL && id>=0 && vec[id].isEmpty==1){
 
 		kay= menu("\n *** Menu Modificar Un Pasajero ***\n\n"
@@ -140,16 +143,16 @@ int menuModificaUnPasajero(ePasajero vec[], int  idX){
 				"4. Modificar Tipo Pasajero\n"
 				"5. Modificar Codigo de Vuelo\n"
 				"6. Modificar Status de Vuelo\n"
-				"7. Modificar Todo\n >");
+				"7. Modificar Todo\n\n >");
 
 	}
 	return kay;
 }
-int bajarUnPasajero(ePasajero vec[], int  idX){
+int bajarUnPasajero(int* flagAlta,ePasajero vec[], int tam, int  idX){
 	int kay=0;
-	int id=idX-1;
 	char confirma='x';
-	if(vec != NULL && id>=0 && vec[id].isEmpty==1){
+	int id = idX-1;
+	if(flagAlta != NULL && vec != NULL && id>=0 && vec[id].isEmpty==1){
 		mostrarUnPasajero(vec, id);
 
 		 while(confirma!= 's' && confirma!= 'n'){
@@ -161,6 +164,16 @@ int bajarUnPasajero(ePasajero vec[], int  idX){
 		}
 		if(confirma=='s'){
 			vec[id].isEmpty=0;
+
+			for(int i=0; i<tam; i++){
+
+				if(vec[i].isEmpty == 1){
+					break;
+				}
+				else{
+					*flagAlta=0;
+				}
+			}
 			kay=1;
 			printf("\n¡Se ha dado de baja con exito!");
 		}
@@ -176,11 +189,18 @@ int bajarUnPasajero(ePasajero vec[], int  idX){
 }
 int mostrarUnPasajero(ePasajero vec[], int id){
 	int kay=0;
+	char descripcion[10];
 	if(vec!=NULL && id>=0){
+		if(vec[id].statusVuelo){
+			strcpy(descripcion, "Activo");
+		}
+		else{
+			strcpy(descripcion,"Inactivo");
+		}
 		  printf(" _________________________________________________________________________________________________________________________");
 				printf("\n| Id   |     Nombre    |     Apellido     |      Precio     |    Codigo de vuelo  |  Tipo de pasajero  |  Status del vuelo|\n");
 				  printf("|------|---------------|------------------|-----------------|---------------------|--------------------|------------------|\n");
-				  printf("|%04d  |  %10s   |    %10s    |      $%6.2f    |          %4s       |         %d          |         %d        |\n", vec[id].id, vec[id].nombre, vec[id].apellido, vec[id].precio, vec[id].codigoVuelo, vec[id].tipoPasajero, vec[id].statusVuelo);
+				  printf("| %04d |  %10s   |    %10s    |      $%6.2f    |          %4s       |         %d          |      %8s    |\n", vec[id].id, vec[id].nombre, vec[id].apellido, vec[id].precio, vec[id].codigoVuelo, vec[id].tipoPasajero, descripcion);
 				  printf("|______|_______________|__________________|_________________|_____________________|____________________|__________________|");
 		kay=1;
 		printf("\n");
@@ -193,6 +213,7 @@ int mostrarUnPasajero(ePasajero vec[], int id){
 int mostrarListaPasajeros(ePasajero vec[], int tam){
 	int kay=0;
 	int i;
+	char descripcion[10];
 	if(vec!=NULL && tam>0){
 		  printf(" _________________________________________________________________________________________________________________________");
 		printf("\n| Id   |     Nombre    |     Apellido     |      Precio     |    Codigo de vuelo  |  Tipo de pasajero  |  Status del vuelo|\n");
@@ -200,12 +221,52 @@ int mostrarListaPasajeros(ePasajero vec[], int tam){
 
 		for(i=0 ; i<tam; i++){
 			if(vec[i].isEmpty ==1){
-		  printf("|%04d  |  %10s   |    %10s    |      $%6.2f    |          %4s       |         %d          |         %d        |\n", vec[i].id, vec[i].nombre, vec[i].apellido, vec[i].precio, vec[i].codigoVuelo, vec[i].tipoPasajero, vec[i].statusVuelo);
+				if(vec[i].statusVuelo==1){
+					strcpy(descripcion, "Activo");
+				}
+				else{
+					strcpy(descripcion, "Inactivo");
+				}
+				printf("| %04d |%10s     |  %10s      |      $%6.2f    |          %4s       |         %d          |     %8s     |\n", vec[i].id, vec[i].nombre, vec[i].apellido, vec[i].precio, vec[i].codigoVuelo, vec[i].tipoPasajero, descripcion);
 			}
 		}
 		  printf("|______|_______________|__________________|_________________|_____________________|____________________|__________________|");
 			kay=1;
 			printf("\n");
+
+	}
+	return kay;
+}
+int mostrarListaPasajerosActivos(ePasajero vec[], int tam){
+	int kay=0;
+	int i;
+	char descripcion[10];
+	int contador=0;
+
+	if(vec!=NULL && tam>0){
+
+		for(i=0 ; i<tam; i++){
+			if(vec[i].isEmpty ==1 && vec[i].statusVuelo==1){
+				contador++;
+			}
+		}
+
+		if(contador!=0){
+			  printf(" _________________________________________________________________________________________________________________________");
+			printf("\n| Id   |     Nombre    |     Apellido     |      Precio     |    Codigo de vuelo  |  Tipo de pasajero  |  Status del vuelo|\n");
+			  printf("|------|---------------|------------------|-----------------|---------------------|--------------------|------------------|\n");
+
+			for(i=0 ; i<tam; i++){
+				if(vec[i].isEmpty ==1 && vec[i].statusVuelo==1){
+					strcpy(descripcion, "Activo");
+
+			  printf("| %04d |%10s     |  %10s      |      $%6.2f    |          %4s       |         %d          |     %8s     |\n", vec[i].id, vec[i].nombre, vec[i].apellido, vec[i].precio, vec[i].codigoVuelo, vec[i].tipoPasajero, descripcion);
+				}
+			}
+			  printf("|______|_______________|__________________|_________________|_____________________|____________________|__________________|");
+				kay=1;
+				printf("\n");
+		}
 
 	}
 	return kay;
@@ -218,7 +279,7 @@ int ordenarListaPasajerosPorApellido(ePasajero vec[], int tam){
 
 			for(int j = i + 1 ;j < tam ; j++){
 
-				if(((strcmp(vec[j].apellido, vec[i].apellido)) < 0 )|| (( strcmp(vec[j].apellido, vec[i].apellido) == 0 ) && (vec[j].tipoPasajero < vec[i].tipoPasajero))){
+				if( vec[j].isEmpty && (((strcmp(vec[j].apellido, vec[i].apellido)) < 0 ) || (( strcmp(vec[j].apellido, vec[i].apellido) == 0 ) && (vec[j].tipoPasajero < vec[i].tipoPasajero)))){
 
 					swapEnteros(&vec[j].id, &vec[i].id);
 					swapString(vec[j].nombre, vec[i].nombre);
@@ -259,7 +320,12 @@ int hacerPromediosPrecios(ePasajero vec[], int tam, float* total, float* promedi
 			}
 		}
 		*cant=cantSobrePromedio;
-		kay=1;
+		if(*total==0){
+			kay=0;
+		}
+		else{
+			kay=1;
+		}
 	}
 	return kay;
 }
@@ -291,7 +357,7 @@ int ordenarListaPasajerosPorCodigo(ePasajero vec[], int tam){
 
 			for(int j = i + 1 ;j < tam ; j++){
 
-				if(((strcmp(vec[j].codigoVuelo, vec[i].codigoVuelo))< 0)|| ((strcmp(vec[j].codigoVuelo, vec[i].codigoVuelo) == 0) && (vec[j].statusVuelo < vec[i].statusVuelo))){
+				if(vec[j].isEmpty && vec[i].isEmpty && strcmp(vec[j].codigoVuelo, vec[i].codigoVuelo) < 0){
 
 					swapEnteros(&vec[j].id, &vec[i].id);
 					swapString(vec[j].nombre, vec[i].nombre);
@@ -300,10 +366,11 @@ int ordenarListaPasajerosPorCodigo(ePasajero vec[], int tam){
 					swapString(vec[j].codigoVuelo, vec[i].codigoVuelo);
 					swapEnteros(&vec[j].tipoPasajero, &vec[i].tipoPasajero);
 					swapEnteros(&vec[j].statusVuelo, &vec[i].statusVuelo);
+
+
 				}
 			}
 		}
-
 		kay=1;
 	}
 	return kay;

@@ -10,7 +10,7 @@
 
 #include "Funciones.h"
 #include "ArrayPasajeros.h"
-#define TAM 2
+#define TAM 2000
 
 
 int main(void) {
@@ -18,31 +18,26 @@ int main(void) {
 	ePasajero pasajero[TAM]=
 	{
 			{1, "ivan", "abekeo", 123.2, "A021", 2, 1, 1},
-			{2, "vanesa", "abekeo", 145.3, "B022", 1, 2, 1}
+			{2, "vanesa", "abekeo", 145.3, "B022", 1, 0, 1}
 	};
 
-	int flagAlta=0;
+	int flagAlta=1;
 	char salir='n';
 
 	setbuf(stdout,NULL);
-	//isEmpty(pasajero, TAM)){
+	isEmpty(pasajero, TAM);
 
 
 	do{
 		switch(menu("\n  *** Menu de Opciones ***\n\n1- ALTAS:\n2- MODIFICAR:\n3- BAJA:\n4- INFORMAR:\n5- SALIR:\n\n")){
 		case 1:
 			printf("1- ALTAS\n");
-			for(int i=0;i<TAM;i++){
-				if(pasajero[i].isEmpty==0){
-					cargarUnPasajero(pasajero, generarId(pasajero, TAM));
-					break;
-				}
-				else{
-					printf("\n¡No hay más espacio para cargar pasajeros!\n");
-					break;
-				}
+			if(cargarUnPasajero(pasajero, generarId(pasajero, TAM))){
+				flagAlta=1;
 			}
-			flagAlta=1;
+			else{
+				printf("\n¡No hay más espacio para cargar pasajeros!\n");
+			}
 			break;
 
 		case  2:
@@ -60,7 +55,9 @@ int main(void) {
 		case  3:
 			if(flagAlta){
 				printf("3- BAJA\n");
-				bajarUnPasajero(pasajero, ingresarInt("\nIngrese el Id del pasajero a dar de baja: ", "\n¡Error! Numeros validos de 1 a 2001.\n>Reingrese: ", 1, 2000));
+				if(mostrarListaPasajeros(pasajero, TAM)){
+					bajarUnPasajero(&flagAlta, pasajero, TAM, ingresarInt("\nIngrese el Id del pasajero a dar de baja: ", "\n¡Error! Numeros validos de 1 a 2001.\n>Reingrese: ", 1, 2000));
+				}
 			}
 			else{
 					printf("\n¡Debe de haber ingresado un pasajero para poder dar de baja!\n");
@@ -71,15 +68,23 @@ int main(void) {
 			if(flagAlta){
 
 				printf("4- INFORMAR\n");
+				printf("\n1.\n");
 				if(ordenarListaPasajerosPorApellido(pasajero, TAM)){
-					printf("\n1.\n");
 					mostrarListaPasajeros(pasajero, TAM);
 				}
+				else{
+					printf("¡No hay pasajero para mostrar\n");
+				}
 				printf("\n2.\n");
-				mostraPrecios(pasajero, TAM);
+				if(!mostraPrecios(pasajero, TAM)){
+					printf("¡No hay precios para mostrar\n");
+				}
+				printf("\n3.\n");
 				if(ordenarListaPasajerosPorCodigo(pasajero, TAM)){
-					printf("\n3.\n");
-					mostrarListaPasajeros(pasajero, TAM);
+					mostrarListaPasajerosActivos(pasajero, TAM);
+				}
+				else{
+					printf("¡No hay pasajero para mostrar\n");
 				}
 			}
 			else{

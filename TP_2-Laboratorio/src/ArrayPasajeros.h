@@ -62,7 +62,7 @@ int menuModificaUnPasajero(ePasajero vec[], int  idX);
  * \param id indice donde se encuentra el pasajero a dar de baja.
  * \return devuelve 1, si se logro dar de baja correctamente y 0, de ser el caso contrario.
  */
-int bajarUnPasajero(ePasajero vec[], int  id);
+int bajarUnPasajero(int* flagAlta,ePasajero vec[], int tam, int  id);
 /**
  * \brief permite mostrar un pasajero.
  * \param vec un vector de pasajeros.
@@ -77,6 +77,13 @@ int mostrarUnPasajero(ePasajero vec[], int id);
  * \return devuelve 1, si se logro mostrar correctamente y 0, de ser el caso contrario.
  */
 int mostrarListaPasajeros(ePasajero vec[], int tam);
+/**
+ * \brief permite mostra un lista de pasajeros con el estado "Activo"==1.
+ * \param vec un vector de pasajeros.
+ * \param tam el tamaño del vector de pasajeros.
+ * \return devuelve 1, si se logro mostrar correctamente y 0, de ser el caso contrario.
+ */
+int mostrarListaPasajerosActivos(ePasajero vec[], int tam);
 /**
  * \brief permite ordenar la lista de pasajeros por apellido alfabeticamente y tipo de pasajero.
  * \param vec un vector de pasajeros.
