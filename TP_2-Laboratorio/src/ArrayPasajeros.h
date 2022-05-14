@@ -23,11 +23,12 @@ typedef struct
 
 #endif /* ARRAYPASAJEROS_H_ */
 /**
- * \brief permite inicializar el campo isEmpty con 0.
- * \param vec un vector de pasajeros.
- * \param tam el tamaño del vector de pasajeros.
- */
-void isEmpty(ePasajero vec[], int tam);
+* \brief To indicate that all position in the array are empty, this function put the flag (isEmpty) in TRUE in all position of the array
+* \param list Passenger* Pointer to array of passenger
+* \param len int Array length
+* \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+*/
+int initPassengers(ePasajero* list, int len);
 /**
  * \brief permite recorrer el vector de pasajeros buscando los indices donde todavia no se cargo ningun pasajero, para asignarle un id.
  * \param vec un vector de pasajeros.
@@ -62,7 +63,7 @@ int menuModificaUnPasajero(ePasajero vec[], int  idX);
  * \param id indice donde se encuentra el pasajero a dar de baja.
  * \return devuelve 1, si se logro dar de baja correctamente y 0, de ser el caso contrario.
  */
-int bajarUnPasajero(int* flagAlta,ePasajero vec[], int tam, int  id);
+int bajarUnPasajero(ePasajero vec[], int tam, int  idX);
 /**
  * \brief permite mostrar un pasajero.
  * \param vec un vector de pasajeros.
@@ -98,6 +99,13 @@ int ordenarListaPasajerosPorApellido(ePasajero vec[], int tam);
  * \return devuelve 1, si se logro ordenar correctamente y 0, de ser el caso contrario.
  */
 int ordenarListaPasajerosPorCodigo(ePasajero vec[], int tam);
+/**
+ * \brief permite ordenar la lista de pasajeros por Id menor a mayor.
+ * \param vec un vector de pasajeros.
+ * \param tam el tamaño del vector de pasajeros.
+ * \return devuelve 1, si se logro ordenar correctamente y 0, de ser el caso contrario.
+ */
+int ordenarListaPasajerosPorId(ePasajero vec[], int tam);
 /**
  * \brief permite recorrer el vector de pasajeros, permitiendo, acumular el coste a todos los pasajero ingresado y poder calcular el precio total, el precio promedio y la cantidad de pasajeros que pagaron por sobre el precio promedio.
  * \param vec un vector de pasajeros.

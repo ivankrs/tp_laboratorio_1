@@ -21,53 +21,56 @@ int main(void) {
 			{2, "vanesa", "abekeo", 145.3, "B022", 1, 0, 1}
 	};
 
-	int flagAlta=1;
+	int flagAlta=0;
 	char salir='n';
 
 	setbuf(stdout,NULL);
-	isEmpty(pasajero, TAM);
+	if( !initPassengers(pasajero, TAM)){
+		printf("\n¡Ocurrio un problema al inicializar los pasajeros!\n");
+	}
+
 
 
 	do{
 		switch(menu("\n  *** Menu de Opciones ***\n\n1- ALTAS:\n2- MODIFICAR:\n3- BAJA:\n4- INFORMAR:\n5- SALIR:\n\n")){
 		case 1:
-			printf("1- ALTAS\n");
+			printf(" >1- ALTAS:\n\n");
 			if(cargarUnPasajero(pasajero, generarId(pasajero, TAM))){
 				flagAlta=1;
 			}
 			else{
-				printf("\n¡No hay más espacio para cargar pasajeros!\n");
+				printf("¡No hay más espacio para cargar pasajeros!\n");
 			}
 			break;
 
 		case  2:
 			if(flagAlta){
-				printf("2- MODIFICAR\n");
-				if(mostrarListaPasajeros(pasajero, TAM)){
-					modificarUnPasajero(pasajero, ingresarInt("\nIngrese el Id del pasajero a modificar: ", "\n¡Error! Numeros validos de 1 a 2001.\n>Reingrese: ", 1, 2000));
+				printf(" >2- MODIFICAR:\n");
+				if(ordenarListaPasajerosPorId(pasajero, TAM) && mostrarListaPasajeros(pasajero, TAM)){
+					modificarUnPasajero(pasajero, ingresarInt("\nIngrese el Id del pasajero a modificar: ", "\n¡Error! Numeros validos de 1 a 2000.\n>Reingrese: ", 1, 2000));
 				}
 			}
 			else{
-				printf("\n¡Debe de haber ingresado un pasajero para poder modificar!\n");
+				printf("¡Debe de haber ingresado un pasajero para poder modificar!\n");
 			}
 			break;
 
 		case  3:
 			if(flagAlta){
-				printf("3- BAJA\n");
-				if(mostrarListaPasajeros(pasajero, TAM)){
-					bajarUnPasajero(&flagAlta, pasajero, TAM, ingresarInt("\nIngrese el Id del pasajero a dar de baja: ", "\n¡Error! Numeros validos de 1 a 2001.\n>Reingrese: ", 1, 2000));
+				printf(" >3- BAJA:\n");
+				if(ordenarListaPasajerosPorId(pasajero, TAM) && mostrarListaPasajeros(pasajero, TAM)){
+					flagAlta = bajarUnPasajero(pasajero, TAM, ingresarInt("\nIngrese el Id del pasajero a dar de baja: ", "\n¡Error! Numeros validos de 1 a 2000.\n>Reingrese: ", 1, 2000));
 				}
 			}
 			else{
-					printf("\n¡Debe de haber ingresado un pasajero para poder dar de baja!\n");
-				}
+					printf("¡Debe de haber ingresado un pasajero para poder dar de baja!\n");
+			}
 			break;
 
 		case  4:
 			if(flagAlta){
 
-				printf("4- INFORMAR\n");
+				printf(" >4- INFORMAR:\n");
 				printf("\n1.\n");
 				if(ordenarListaPasajerosPorApellido(pasajero, TAM)){
 					mostrarListaPasajeros(pasajero, TAM);
@@ -88,7 +91,7 @@ int main(void) {
 				}
 			}
 			else{
-				printf("\n¡Debe de haber ingresado un pasajero para poder informar!\n");
+				printf("¡Debe de haber ingresado un pasajero para poder informar!\n");
 			}
 
 			break;
